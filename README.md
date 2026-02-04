@@ -81,4 +81,5 @@ git config --global --list
 git add .
 git commit -m "Update portfolio content"
 git push origin main
+python -m http.server 8000
 ```
