@@ -81,3 +81,53 @@ async function loadGitHubProjects() {
 }
 loadGitHubProjects();
 
+// Side navigation: big visible Home/Skills buttons
+const sideNav = document.querySelector('.side-nav');
+sideNav?.addEventListener('click', e => {
+  const btn = e.target.closest('.side-btn');
+  if (!btn) return;
+  const targetId = btn.dataset.target;
+  const target = document.getElementById(targetId);
+  if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+});
+
+// Parallax mouse movement inside hero
+const hero = document.querySelector('.hero');
+const heroContent = document.querySelector('.hero-content');
+const blob = document.querySelector('.floating-blob');
+if (hero) {
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 .. 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    const depth = 18; // how much hero content moves
+    if (heroContent) heroContent.style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
+    if (blob) {
+      const bdepth = parseFloat(blob.dataset.depth || '0.06');
+      blob.style.transform = `translate3d(${x * -depth * bdepth}px, ${y * -depth * bdepth}px, 0)`;
+    }
+  });
+  hero.addEventListener('mouseleave', () => {
+    if (heroContent) heroContent.style.transform = '';
+    if (blob) blob.style.transform = '';
+  });
+}
+
+// Track sections and update side nav active state
+const sections = document.querySelectorAll('header[id], section[id]');
+const sideButtons = document.querySelectorAll('.side-btn');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const id = entry.target.id;
+    const btn = document.querySelector(`.side-btn[data-target="${id}"]`);
+    if (btn) btn.classList.toggle('active', entry.isIntersecting && entry.intersectionRatio > 0.4);
+  });
+}, {threshold: [0.4, 0.6]});
+sections.forEach(s => obs.observe(s));
+
+// Ensure skills section is visible when page first loads (gentle reveal)
+window.addEventListener('load', () => {
+  const skills = document.getElementById('skills');
+  if (skills) skills.classList.add('visible');
+});
+

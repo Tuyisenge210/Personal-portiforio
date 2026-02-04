@@ -44,6 +44,8 @@ body{
 .hero-content{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:120px 20px 60px;text-align:center}
 .hero-kicker{color:var(--accent);font-weight:600;margin:0 0 8px}
 .hero-title{font-size:2.6rem;margin:0 0 12px}
+/* Bigger title for immediate visibility */
+.hero-title{font-size:3.2rem}
 .hero-subtitle{color:var(--muted);max-width:850px;margin:0 auto 22px}
 
 .btn{display:inline-block;border-radius:8px;text-decoration:none;font-weight:600}
@@ -53,6 +55,29 @@ body{
 /* Reveal animations */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease, transform .6s ease}
 .visible{opacity:1;transform:none}
+
+/* Floating blob for motion in hero */
+.floating-blob{position:absolute;right:-6%;top:10%;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(79,124,255,0.18), rgba(0,212,255,0.06) 40%, transparent 60%);filter:blur(30px);transform:translate3d(0,0,0);transition:transform .18s linear}
+.floating-blob::after{content:"";position:absolute;inset:30px;border-radius:50%;background:radial-gradient(circle at 60% 60%, rgba(79,124,255,0.06), rgba(0,212,255,0.02));}
+
+@keyframes floaty {0% {transform: translateY(0)} 50% {transform: translateY(-14px)} 100% {transform: translateY(0)}}
+.floating-blob{animation:floaty 6s ease-in-out infinite}
+
+/* Side navigation for big visible Home/Skills */
+.side-nav{position:fixed;left:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:1200}
+.side-btn{background:transparent;border:2px solid rgba(255,255,255,.06);color:var(--text);padding:10px 18px;border-radius:10px;font-weight:700;backdrop-filter:blur(6px);cursor:pointer;transition:transform .18s ease, background .18s ease}
+.side-btn:hover{transform:translateX(6px)}
+.side-btn.active{background:var(--primary);color:#fff;border-color:transparent;box-shadow:var(--shadow)}
+
+/* Ensure skills section stands out and is visible */
+#skills{scroll-margin-top:110px}
+
+/* Slightly larger hero on small screens for prominence */
+@media (max-width: 640px){
+  .hero-title{font-size:2.4rem}
+  .side-nav{left:8px}
+  .floating-blob{display:none}
+}
 
 /* Sections */
 .section{padding:70px 0;border-top:1px solid rgba(255,255,255,.06)}
