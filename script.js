@@ -131,3 +131,19 @@ window.addEventListener('load', () => {
   if (skills) skills.classList.add('visible');
 });
 
+// Hero carousel rotation
+(() => {
+  const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+  const captionEl = document.querySelector('.carousel-caption');
+  if (!slides.length) return;
+  let idx = 0;
+  function show(i){
+    slides.forEach((s, n) => s.classList.toggle('active', n === i));
+    const c = slides[i].dataset.caption || '';
+    if (captionEl) captionEl.textContent = c;
+  }
+  // start auto-rotate
+  show(0);
+  setInterval(() => { idx = (idx + 1) % slides.length; show(idx); }, 4500);
+})();
+
