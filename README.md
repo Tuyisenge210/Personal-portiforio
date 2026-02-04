@@ -58,3 +58,27 @@ Notes & tips
 
 Want help?
 - I can commit and create a GitHub repo, enable GitHub Pages, or update the meta tag with your GitHub username — tell me which and I'll proceed.
+
+
+
+(Commit commands)
+```bash
+cd "d:\USER\Portforio_Eric TUYISENGE\Personal-portiforio"
+git add -A
+git commit -m "Restore original dark theme palette"
+git push origin main
+git push origin master
+git add -A ; git commit -m "Restore original dark theme palette" ; git push origin main
+
+`git remote add origin https://github.com/<your-username>/`<repo-name>.git
+git push -u origin main
+
+Global config
+git config --global user.name "Eric Tuyisenge"
+git config --global user.email "your-email@example.com"
+git config --global --list
+
+git add .
+git commit -m "Update portfolio content"
+git push origin main
+```
